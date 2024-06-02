@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam
+package com.xuong.poly.hoangcam.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
