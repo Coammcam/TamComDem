@@ -41,7 +41,10 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 
 @Preview
 @Composable
-fun UpdateInfor() {
+fun UpdateInfo() {
+    var phonenumber by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,10 +82,28 @@ fun UpdateInfor() {
                     .fillMaxSize()
                     .padding(16.dp)
             ) {
-                var phonenumber by remember { mutableStateOf("") }
-                var ward by remember { mutableStateOf("") }
-                var street by remember { mutableStateOf("") }
-                var number by remember { mutableStateOf("") }
+
+                Text(
+                    text = "Họ tên",
+                    fontFamily = Inter,
+                    color = Color.White,
+                    modifier = Modifier.padding(top = 15.dp)
+                )
+                TextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(67.dp)
+                        .padding(vertical = 10.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        disabledContainerColor = Color.White,
+                        unfocusedIndicatorColor = Color.White,
+                    )
+                )
 
                 Text(
                     text = "Số điện thoại",
@@ -108,58 +129,14 @@ fun UpdateInfor() {
                 )
 
                 Text(
-                    text = "Phường",
+                    text = "Địa chỉ",
                     fontFamily = Inter,
                     color = Color.White,
-                    modifier = Modifier.padding(top = 15.dp)
+//                    modifier = Modifier.padding(top = 15.dp)
                 )
                 TextField(
-                    value = ward,
-                    onValueChange = { ward = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(67.dp)
-                        .padding(vertical = 10.dp)
-                        .clip(RoundedCornerShape(10.dp)),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
-                        disabledContainerColor = Color.White,
-                        unfocusedIndicatorColor = Color.White,
-                    )
-                )
-
-                Text(
-                    text = "Đường",
-                    fontFamily = Inter,
-                    color = Color.White,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-                TextField(
-                    value = street,
-                    onValueChange = { street = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(67.dp)
-                        .padding(vertical = 10.dp)
-                        .clip(RoundedCornerShape(10.dp)),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
-                        disabledContainerColor = Color.White,
-                        unfocusedIndicatorColor = Color.White,
-                    )
-                )
-
-                Text(
-                    text = "Số nhà",
-                    fontFamily = Inter,
-                    color = Color.White,
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-                TextField(
-                    value = number,
-                    onValueChange = { number = it },
+                    value = address,
+                    onValueChange = { address = it },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(67.dp)
