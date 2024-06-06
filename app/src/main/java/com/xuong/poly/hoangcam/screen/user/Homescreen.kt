@@ -40,6 +40,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import com.xuong.poly.hoangcam.R
+import com.xuong.poly.hoangcam.component.FilterChip
+import com.xuong.poly.hoangcam.component.ListFoodItem
+import com.xuong.poly.hoangcam.model.ChipModel
 import com.xuong.poly.hoangcam.model.ItemModel
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
 
@@ -115,132 +118,6 @@ private fun HeaderView(modifier: Modifier){
     }
 }
 
-private data class ChipModel(val id: Int, val name: String, val image: Int)
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun FilterChip(modifier: Modifier, data: ChipModel){
-
-    var selected by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    Column(
-        modifier
-            .clickable { selected = !selected }
-            .size(height = 100.dp, width = 80.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = data.name,
-            modifier.basicMarquee(Int.MAX_VALUE),
-            color = if(selected) Color("#FE724C".toColorInt()) else Color.White,
-            fontSize = 15.sp,
-            fontWeight = FontWeight(600),
-            maxLines = 1
-        )
-//        Spacer(
-//            modifier
-//                .size(70.dp)
-//                .background(Color.Gray))
-        Image(
-            painterResource(id = data.image),
-            "",
-            modifier = modifier
-                .size(70.dp)
-                .clip(RoundedCornerShape(20.dp)),
-
-        )
-    }
-}
-
-@Composable
-private fun ListItem(modifier: Modifier, data: ItemModel){
-
-    var quantity by rememberSaveable {
-        mutableIntStateOf(data.quantity)
-    }
-
-    Row(
-        modifier
-            .padding(start = 10.dp, end = 10.dp)
-            .clip(RoundedCornerShape(15.dp))
-            .fillMaxWidth()
-            .height(100.dp)
-            .background(Color("#2F2D2D".toColorInt()))
-            .padding(15.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Image(
-            painterResource(id = data.image),
-            "",
-            modifier
-                .size(70.dp)
-                .clip(RoundedCornerShape(20.dp)),
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier
-                .fillMaxWidth(0.5f)
-                .fillMaxHeight(),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = data.name,
-                fontSize = 20.sp,
-                color = Color.White
-            )
-            Text(
-                text = String.format("%.0f", data.price) + "K",
-                fontSize = 20.sp,
-                color = Color.White
-            )
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "-",
-                modifier
-                    .size(36.dp)
-                    .clip(RoundedCornerShape(25.dp))
-                    .border(1.dp, Color("#FE724C".toColorInt()), RoundedCornerShape(25.dp))
-                    .clickable {
-                        if (quantity > 0) quantity--
-                    },
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color("#FE724C".toColorInt())
-            )
-            Text(
-                text = if (quantity<10) "0$quantity" else "$quantity",
-                modifier.padding(8.dp),
-                fontSize = 19.sp,
-                color = Color.White
-            )
-            Text(
-                text = "+",
-                modifier
-                    .size(36.dp)
-                    .clip(RoundedCornerShape(25.dp))
-                    .background(Color("#FE724C".toColorInt()))
-//                    .border(1.dp, Color.Black, RoundedCornerShape(25.dp))
-                    .clickable {
-                        quantity++
-                    },
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = Color.White
-            )
-        }
-    }
-}
-
 @Composable
 fun MainView(modifier: Modifier){
 
@@ -265,6 +142,7 @@ fun MainView(modifier: Modifier){
                 .background(Color("#252121".toColorInt()))
                 .padding(paddingValues),
 //                modifier.padding(start = 10.dp, end = 10.dp),
+//            contentPadding = ,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             content = {
                 item {
@@ -283,7 +161,11 @@ fun MainView(modifier: Modifier){
                     }
                 }
                 items(listItem, key = {item -> item.id}){item ->
-                    ListItem(modifier = modifier, data = item)
+                    Row (
+                        modifier.padding(start = 10.dp, end = 10.dp)
+                    ) {
+                        ListFoodItem(modifier = modifier, data = item, false)
+                    }
                 }
             }
         )
