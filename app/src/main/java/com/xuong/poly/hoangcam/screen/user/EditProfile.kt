@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam.screen
+package com.xuong.poly.hoangcam.screen.user
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam.screen
+package com.xuong.poly.hoangcam.screen.user
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -226,7 +226,7 @@ fun CartScreenView(modifier: Modifier){
 //                item {
 //                    StickyHeader(modifier = modifier, name = "Test")
 //                }
-                items(ListCart){item->
+                items(ListCart){ item->
                     if (item.type == 1){
                         ListItem(modifier = modifier, data = item, cancelable = cancelable)
                     }

@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam.screen
+package com.xuong.poly.hoangcam.screen.user
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -38,12 +38,12 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CartWithNoOrder() {
+fun CartHistoryWithoutBills() {
     Scaffold(topBar = {
         TopAppBar(
             title = {
                 Text(
-                    text = "Giỏ hàng",
+                    text = "Lịch sử",
                     color = Color.White,
                     fontSize = 17.sp,
                     fontFamily = Inter,
@@ -75,7 +75,7 @@ fun CartWithNoOrder() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    painterResource(id = R.drawable.cart_bigger),
+                    painterResource(id = R.drawable.history),
                     contentDescription = null,
                     Modifier.size(170.dp),
                     tint = Color("#d3d3d3".toColorInt())
@@ -90,6 +90,16 @@ fun CartWithNoOrder() {
                     modifier = Modifier.padding(bottom = 45.dp)
                 )
 
+                Text(
+                    text = "Nhấn nút màu bên dưới \n" + "để tạo đơn hàng",
+                    color = Color.White,
+                    fontSize = 17.sp,
+                    fontFamily = Inter,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    textAlign = TextAlign.Center
+                )
+
                 Button(
                     onClick = { /*TODO*/ },
                     modifier = Modifier,
@@ -97,7 +107,7 @@ fun CartWithNoOrder() {
                     colors = ButtonDefaults.buttonColors(Color.White),
                 ) {
                     Text(
-                        text = "Đặt hàng",
+                        text = "Bắt đầu đặt hàng",
                         color = Color.Black,
                         fontFamily = Inter,
                         fontWeight = FontWeight.SemiBold,
