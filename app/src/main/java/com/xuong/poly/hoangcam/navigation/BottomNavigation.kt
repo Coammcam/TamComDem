@@ -24,7 +24,7 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 
 @Preview(showBackground = true)
 @Composable
-fun BottomNavifation() {
+fun BottomNavigation() {
     NavigationBar(
         modifier = Modifier.background(Color("#312C2C".toColorInt())),
         containerColor = MaterialTheme.colorScheme.contentColorFor(Color.Transparent),
