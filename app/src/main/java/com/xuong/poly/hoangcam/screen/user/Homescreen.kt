@@ -254,8 +254,8 @@ fun MainView(modifier: Modifier, navController: NavHostController) {
         listChip.add(ChipModel(nums, "Đồ ăn thêm", R.drawable.comsuon))
     }
 
-    for (nums in 1..20) {
-        listItem.add(ItemModel(nums, "Test $nums", 10f, 1, R.drawable.comsuon, 1))
+    for (nums in 1..20){
+        listItem.add(ItemModel(nums.toString(), "Test $nums", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(bottomBar = {

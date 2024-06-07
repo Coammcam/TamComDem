@@ -1,5 +1,8 @@
 package com.xuong.poly.hoangcam.screen.admin
 
+import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,24 +18,35 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.xuong.poly.hoangcam.api.HttpReq
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.OrderModel
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.primary1
 import com.xuong.poly.hoangcam.ui.theme.primary2
-
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -53,7 +67,7 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
                 .weight(0.6f)
         ){
             Text(
-                text = "Đơn hàng 1",
+                text = "Đơn hàng ${order.id}",
                 fontSize = 22.sp,
                 color = Color.White,
                 fontWeight = FontWeight(600)
@@ -87,13 +101,23 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
     }
 }
 
-val Orders = mutableListOf<OrderModel>()
+val api = HttpReq.getInstance()
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AdminHomeView(modifier: Modifier, navController: NavHostController){
 
-    for (nums in 1..10){
-        Orders.add(OrderModel(nums.toString(), 10f, true))
+    val orders = remember {
+        mutableStateListOf<OrderModel>()
+    }
+
+    val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+
+    println("init getting data")
+    LaunchedEffect(key1 = Unit) {
+        println("getting data")
+        delay(5000)
+        orders.addAll(api.getOrders().body()!!.toMutableList())
     }
 
     Scaffold(
@@ -110,7 +134,35 @@ fun AdminHomeView(modifier: Modifier, navController: NavHostController){
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             content = {
-                items(Orders, key = {item -> item.id}){item ->
+                item {
+                    Column(
+                        modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Text(
+                            text = "Today: $currentDate",
+                            fontSize = 25.sp,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "Số lượng đơn hàng: ${orders.size}",
+                            fontSize = 25.sp,
+                            color = Color.White
+                        )
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(SpanStyle(Color.White)){
+                                    append("Doanh thu: ")
+                                }
+                                withStyle(SpanStyle(Color.Red)){
+                                    append("69K")
+                                }
+                            },
+                            fontSize = 25.sp,
+                        )
+                    }
+                }
+                items(orders, key = {item -> item.id}){item ->
                     OrderListItem(modifier = modifier, item)
                 }
             }
