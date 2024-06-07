@@ -65,16 +65,12 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 @Composable
 fun AdminAddDish(navController: NavHostController) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                HeaderWithAvatar(
-                    modifier = Modifier,
-                    leadingIcon = true,
-                    name = "Cum tứm đim",
-                    trailingIcon = false
-                )
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
+        HeaderWithAvatar(
+            modifier = Modifier,
+            leadingIcon = true,
+            name = "Cum tứm đim",
+            trailingIcon = false,
+            navController = navController
         )
     }) { contentPadding ->
         Box(

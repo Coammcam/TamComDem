@@ -40,16 +40,12 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 @Composable
 fun AdminManagerCategories(navController: NavHostController) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                HeaderWithAvatar(
-                    modifier = Modifier,
-                    leadingIcon = true,
-                    name = "Cum tứm đim",
-                    trailingIcon = false
-                )
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
+        HeaderWithAvatar(
+            modifier = Modifier,
+            leadingIcon = true,
+            name = "Cum tứm đim",
+            trailingIcon = false,
+            navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Box(
@@ -66,12 +62,12 @@ fun AdminManagerCategories(navController: NavHostController) {
                     .background(Color("#252121".toColorInt()))
                     .padding(16.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINADDCATEGORY.name)
-                    }
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINADDCATEGORY.name)
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,
@@ -88,12 +84,13 @@ fun AdminManagerCategories(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp).fillMaxWidth().clickable {
-                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINEDITCATEGORY.name)
-                    }
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINEDITCATEGORY.name)
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,
@@ -110,12 +107,13 @@ fun AdminManagerCategories(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp).fillMaxWidth().clickable {
-                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINDELETECATEGORY.name)
-                    }
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINDELETECATEGORY.name)
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,

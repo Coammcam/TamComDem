@@ -36,22 +36,17 @@ import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AdminManager(navController: NavHostController) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                HeaderWithAvatar(
-                    modifier = Modifier,
-                    leadingIcon = true,
-                    name = "Cum tứm đim",
-                    trailingIcon = false
-                )
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
+        HeaderWithAvatar(
+            modifier = Modifier,
+            leadingIcon = false ,
+            name = "Cum tứm đim",
+            trailingIcon = false,
+            navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Box(
@@ -72,8 +67,7 @@ fun AdminManager(navController: NavHostController) {
                         .fillMaxWidth()
                         .clickable {
                             navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGECATEGORY.name)
-                        },
-                    verticalAlignment = Alignment.CenterVertically
+                        }, verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
@@ -91,15 +85,13 @@ fun AdminManager(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                Row(verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .padding(top = 12.dp)
                         .fillMaxWidth()
                         .clickable {
                             navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGERDISH.name)
-                        }
-                ) {
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,
@@ -116,15 +108,13 @@ fun AdminManager(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                Row(verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .padding(top = 12.dp)
                         .fillMaxWidth()
                         .clickable {
                             navController?.navigate(ROUTE_SCREEN_NAME.ADMINHISTORY.name)
-                        }
-                ) {
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,

@@ -39,16 +39,12 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 @Composable
 fun AdminManagerDish(navController: NavHostController) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                HeaderWithAvatar(
-                    modifier = Modifier,
-                    leadingIcon = true,
-                    name = "Cum tứm đim",
-                    trailingIcon = false
-                )
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
+        HeaderWithAvatar(
+            modifier = Modifier,
+            leadingIcon = true,
+            name = "Cum tứm đim",
+            trailingIcon = false,
+            navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Box(
@@ -65,10 +61,11 @@ fun AdminManagerDish(navController: NavHostController) {
                     .padding(16.dp)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINADDDISH.name)
-                    },
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINADDDISH.name)
+                        }, verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
@@ -86,10 +83,13 @@ fun AdminManagerDish(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp)
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINEDITDISH.name)
+                        }) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
                         contentDescription = null,
@@ -106,9 +106,13 @@ fun AdminManagerDish(navController: NavHostController) {
                     )
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp)
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                        .clickable {
+                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINDELETEDISH.name)
+                        }
 
                 ) {
                     Image(
