@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
+import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.ItemTypeFood
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
@@ -45,28 +46,16 @@ fun AdminDeleteCategory(navController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.logo_app),
-                        contentDescription = null,
-                        Modifier.size(45.dp)
-                    )
-                    Text(
-                        text = "Cum tứm đim",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontFamily = Inter,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
-                }
+                HeaderWithAvatar(
+                    modifier = Modifier,
+                    leadingIcon = true,
+                    name = "Cum tứm đim",
+                    trailingIcon = false
+                )
             },
             colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
         )
-    }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
+    }) { contentPadding ->
         Box(
             modifier = Modifier
                 .padding(contentPadding)

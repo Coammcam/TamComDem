@@ -3,11 +3,13 @@ package com.xuong.poly.hoangcam.screen.admin
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,8 +17,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -27,20 +32,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.api.HttpReq
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.OrderModel
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
+import com.xuong.poly.hoangcam.ui.theme.Inter
 import com.xuong.poly.hoangcam.ui.theme.primary1
 import com.xuong.poly.hoangcam.ui.theme.primary2
 import kotlinx.coroutines.delay
@@ -50,7 +60,7 @@ import java.time.format.DateTimeFormatter
 
 
 @Composable
-private fun OrderListItem(modifier: Modifier, order: OrderModel){
+private fun OrderListItem(modifier: Modifier, order: OrderModel) {
     Row(
         modifier
             .fillMaxWidth()
@@ -61,11 +71,11 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column (
+        Column(
             modifier
                 .fillMaxWidth()
                 .weight(0.6f)
-        ){
+        ) {
             Text(
                 text = "Đơn hàng ${order.id}",
                 fontSize = 22.sp,
@@ -79,12 +89,11 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
                 fontWeight = FontWeight(600)
             )
         }
-        Column (
+        Column(
             modifier
                 .fillMaxWidth()
-                .weight(0.4f),
-            horizontalAlignment = Alignment.End
-        ){
+                .weight(0.4f), horizontalAlignment = Alignment.End
+        ) {
             Text(
                 text = String.format("%.0f", order.total) + "K",
                 fontSize = 22.sp,
@@ -92,9 +101,9 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
                 fontWeight = FontWeight(600)
             )
             Text(
-                text = if(order.status) "Chấp nhận" else "Từ chối",
+                text = if (order.status) "Chấp nhận" else "Từ chối",
                 fontSize = 22.sp,
-                color = if(order.status) Color.Green else Color.Red,
+                color = if (order.status) Color.Green else Color.Red,
                 fontWeight = FontWeight(600)
             )
         }
@@ -103,9 +112,10 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
 
 val api = HttpReq.getInstance()
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AdminHomeView(modifier: Modifier, navController: NavHostController){
+fun AdminHomeView(modifier: Modifier, navController: NavHostController) {
 
     val orders = remember {
         mutableStateListOf<OrderModel>()
@@ -117,61 +127,97 @@ fun AdminHomeView(modifier: Modifier, navController: NavHostController){
     LaunchedEffect(key1 = Unit) {
         println("getting data")
         delay(5000)
-        orders.addAll(api.getOrders().body()!!.toMutableList())
+//        orders.addAll(api.getOrders().body()!!.toMutableList())
     }
 
-    Scaffold(
-        topBar = {
-            HeaderWithAvatar(modifier = modifier, username = "Cum tứm đim")
-        },
-        bottomBar = {
-            AdminBottomNavigation(navController)
-        },
-        containerColor = primary1
-    ) {paddingValues ->
-        LazyColumn (
-            modifier.padding(10.dp),
-            contentPadding = paddingValues,
+    Scaffold(topBar = {
+        TopAppBar(
+            title = {
+                Row(
+                    modifier = Modifier.padding(end = 13.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painterResource(id = R.drawable.logo_app),
+                        contentDescription = null,
+                        Modifier.size(45.dp)
+                    )
+                    Text(
+                        text = "Cum tứm đim",
+                        color = Color.White,
+                        fontSize = 17.sp,
+                        fontFamily = Inter,
+                        textAlign = TextAlign.Start,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                            .weight(1f)
+                    )
+
+                    Image(
+                        painterResource(id = R.drawable.bell),
+                        contentDescription = null,
+                        modifier.size(20.dp)
+                    )
+
+                }
+            },
+            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
+        )
+    }, bottomBar = {
+        AdminBottomNavigation(navController)
+    }, containerColor = primary1
+    ) { paddingValues ->
+        LazyColumn(
+            modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             content = {
                 item {
                     Column(
-                        modifier.fillMaxWidth(),
+                        modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 15.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
                             text = "Today: $currentDate",
-                            fontSize = 25.sp,
-                            color = Color.White
+                            fontSize = 18.sp,
+                            color = Color.White,
+                            fontFamily = Inter
                         )
                         Text(
                             text = "Số lượng đơn hàng: ${orders.size}",
-                            fontSize = 25.sp,
-                            color = Color.White
+                            fontSize = 18.sp,
+                            color = Color.White,
+                            fontFamily = Inter
+
                         )
                         Text(
                             buildAnnotatedString {
-                                withStyle(SpanStyle(Color.White)){
+                                withStyle(SpanStyle(Color.White)) {
                                     append("Doanh thu: ")
                                 }
-                                withStyle(SpanStyle(Color.Red)){
+                                withStyle(SpanStyle(Color.Red)) {
                                     append("69K")
                                 }
                             },
-                            fontSize = 25.sp,
+                            fontFamily = Inter,
+                            fontSize = 20.sp,
                         )
                     }
                 }
-                items(orders, key = {item -> item.id}){item ->
+                items(orders, key = { item -> item.id }) { item ->
                     OrderListItem(modifier = modifier, item)
                 }
-            }
-        )
+            })
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Previewing3(){
+fun Previewing3() {
     AdminHomeView(modifier = Modifier, navController = NavHostController(LocalContext.current))
 }
