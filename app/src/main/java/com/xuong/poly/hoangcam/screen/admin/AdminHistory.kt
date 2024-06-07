@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam.adminScreen
+package com.xuong.poly.hoangcam.screen.admin
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -22,16 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import com.xuong.poly.hoangcam.navigation.BottomNavigation
+import androidx.navigation.NavHostController
+import com.xuong.poly.hoangcam.model.Bill
+import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
-data class Bill(
-    val request: String, val quantity: Int, val date: String, val time: String, val price: Float
-)
 
 val ListBill = mutableListOf(
     Bill("Đơn hàng đã chấp nhận", 3, "10/3/2024", "9:20", 98f),
@@ -42,11 +40,10 @@ val ListBill = mutableListOf(
     Bill("Đơn hàng đã bị huỷ", 3, "10/3/2024", "9:20", 98f),
 )
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AdminHistory() {
+fun AdminHistory(navController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -56,13 +53,15 @@ fun AdminHistory() {
                     fontSize = 17.sp,
                     fontFamily = Inter,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth().padding(end = 13.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 13.dp),
                     fontWeight = FontWeight.SemiBold
                 )
             },
             colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
         )
-    }, bottomBar = { BottomNavigation() }) { contentPadding ->
+    }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Box(
             modifier = Modifier
                 .padding(contentPadding)

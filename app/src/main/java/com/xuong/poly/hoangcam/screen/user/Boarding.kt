@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,11 +14,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
+import com.xuong.poly.hoangcam.main.ROUTE_SCREEN_NAME
+import kotlinx.coroutines.delay
 
-@Preview
 @Composable
-fun Boarding() {
+fun Boarding(navController: NavHostController) {
+
+    LaunchedEffect(Unit) {
+        delay(1500) // 3-second delay
+        navController.navigate(ROUTE_SCREEN_NAME.LOGIN.name)
+    }
+
     Box(modifier = Modifier
         .background(Color("#282222".toColorInt()))
         .fillMaxSize()) {

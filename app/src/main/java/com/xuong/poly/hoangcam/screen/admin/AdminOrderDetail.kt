@@ -59,7 +59,7 @@ fun AdminOrderDetailView(modifier: Modifier){
 
     Scaffold(
         topBar = {
-            HeaderWithAvatar(modifier = modifier, username = "Test")
+            HeaderWithAvatar(modifier = modifier, username = "Cum tứm đim")
         },
         containerColor = primary1
     ) {paddingValues ->

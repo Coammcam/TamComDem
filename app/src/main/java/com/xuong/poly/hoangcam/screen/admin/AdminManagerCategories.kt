@@ -1,12 +1,15 @@
-package com.xuong.poly.hoangcam.adminScreen
+package com.xuong.poly.hoangcam.screen.admin
+
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,15 +28,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
-import com.xuong.poly.hoangcam.navigation.BottomNavigation
+import com.xuong.poly.hoangcam.main.ROUTE_SCREEN_NAME
+import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AdminManagerDish() {
+fun AdminManagerCategories(navController: NavHostController) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -58,12 +62,13 @@ fun AdminManagerDish() {
             },
             colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
         )
-    }, bottomBar = { BottomNavigation() }) { contentPadding ->
+    }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Box(
             modifier = Modifier
                 .padding(contentPadding)
                 .background(Color.Black)
                 .fillMaxSize()
+
         ) {
             Column(
                 modifier = Modifier
@@ -73,7 +78,10 @@ fun AdminManagerDish() {
                     .padding(16.dp)
             ) {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINADDCATEGORY.name)
+                    }
                 ) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
@@ -81,7 +89,7 @@ fun AdminManagerDish() {
                         Modifier.size(45.dp)
                     )
                     Text(
-                        text = "Thêm món ăn",
+                        text = "Thêm loại món ăn",
                         color = Color.White,
                         fontSize = 17.sp,
                         fontFamily = Inter,
@@ -93,7 +101,9 @@ fun AdminManagerDish() {
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp)
+                    modifier = Modifier.padding(top = 12.dp).fillMaxWidth().clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINEDITCATEGORY.name)
+                    }
                 ) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
@@ -101,7 +111,7 @@ fun AdminManagerDish() {
                         Modifier.size(45.dp)
                     )
                     Text(
-                        text = "Sửa món ăn",
+                        text = "Sửa loại món ăn",
                         color = Color.White,
                         fontSize = 17.sp,
                         fontFamily = Inter,
@@ -113,7 +123,9 @@ fun AdminManagerDish() {
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 12.dp)
+                    modifier = Modifier.padding(top = 12.dp).fillMaxWidth().clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINDELETECATEGORY.name)
+                    }
                 ) {
                     Image(
                         painterResource(id = R.drawable.logo_app),
@@ -121,7 +133,7 @@ fun AdminManagerDish() {
                         Modifier.size(45.dp)
                     )
                     Text(
-                        text = "Xoá món ăn",
+                        text = "Xoá loại món ăn",
                         color = Color.White,
                         fontSize = 17.sp,
                         fontFamily = Inter,
