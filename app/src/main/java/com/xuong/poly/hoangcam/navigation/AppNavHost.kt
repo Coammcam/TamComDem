@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.xuong.poly.hoangcam.screen.admin.AdminAddCategory
 import com.xuong.poly.hoangcam.screen.admin.AdminAddDish
 import com.xuong.poly.hoangcam.screen.admin.AdminDeleteCategory
+import com.xuong.poly.hoangcam.screen.admin.AdminDeleteDish
 import com.xuong.poly.hoangcam.screen.admin.AdminEditCategory
 import com.xuong.poly.hoangcam.screen.admin.AdminEditDish
 import com.xuong.poly.hoangcam.screen.admin.AdminHistory
@@ -22,7 +23,7 @@ import com.xuong.poly.hoangcam.screen.user.MainView
 import com.xuong.poly.hoangcam.screen.user.UpdateInfo
 
 enum class ROUTE_SCREEN_NAME {
-    BOARDING, LOGIN, SIGNUP, OTP, HOMESCREEN, CARTHISTORY, CARTHISTORYWITHOUTBILLS, BILLDETAIL, PAYMENT, PROFILE, ADMINHOME, ADMINMANAGER, ADMINADDCATEGORY, ADMINMANAGECATEGORY, ADMINMANAGERDISH, ADMINHISTORY, ADMINSUPPORT, ADMINEDITCATEGORY, ADMINDELETECATEGORY, ADMINADDDISH, ADMINEDITDISH
+    BOARDING, LOGIN, SIGNUP, OTP, HOMESCREEN, CARTHISTORY, CARTHISTORYWITHOUTBILLS, BILLDETAIL, PAYMENT, PROFILE, ADMINHOME, ADMINMANAGER, ADMINADDCATEGORY, ADMINMANAGECATEGORY, ADMINMANAGERDISH, ADMINHISTORY, ADMINSUPPORT, ADMINEDITCATEGORY, ADMINDELETECATEGORY, ADMINADDDISH, ADMINEDITDISH, ADMINDELETEDISH
 }
 
 @Composable
@@ -91,6 +92,10 @@ fun AppNavHost(
 
         composable(ROUTE_SCREEN_NAME.ADMINEDITDISH.name) {
             AdminEditDish(navController)
+        }
+
+        composable(ROUTE_SCREEN_NAME.ADMINDELETEDISH.name) {
+            AdminDeleteDish(navController)
         }
     }
 }

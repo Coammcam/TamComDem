@@ -42,7 +42,7 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AdminDeleteCategory(navController: NavHostController) {
+fun AdminDeleteDish(navController: NavHostController) {
     Scaffold(topBar = {
         HeaderWithAvatar(
             modifier = Modifier,
@@ -79,14 +79,14 @@ fun AdminDeleteCategory(navController: NavHostController) {
     }
 }
 
-val listTypeCategory_del = mutableListOf(
+val listDish_del = mutableListOf(
     ItemTypeFood(1, "Bì chả"),
     ItemTypeFood(2, "Sườn mỡ"),
-    ItemTypeFood(3, "Sườn nạc"),
+    ItemTypeFood(3, "Thịt chó"),
 )
 
 @Composable
-fun RowListType_del(model: ItemTypeFood) {
+fun RowListTDish_del(model: ItemTypeFood) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,5 +122,5 @@ fun RowListType_del(model: ItemTypeFood) {
 @Preview
 @Composable
 private fun Preview() {
-    AdminDeleteCategory(navController = NavHostController(context = LocalContext.current))
+    AdminDeleteDish(navController = NavHostController(context = LocalContext.current))
 }
