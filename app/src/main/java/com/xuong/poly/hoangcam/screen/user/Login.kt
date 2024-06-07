@@ -130,7 +130,7 @@ fun Login(navController: NavHostController) {
                     onValueChange = { password = it },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(67.dp)
+                        .height(70.dp)
                         .padding(vertical = 10.dp)
                         .clip(RoundedCornerShape(10.dp)),
                     colors = TextFieldDefaults.colors(
