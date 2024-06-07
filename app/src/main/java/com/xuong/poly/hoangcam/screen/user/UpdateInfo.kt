@@ -36,12 +36,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
-@Preview
 @Composable
-fun UpdateInfo() {
+fun UpdateInfo(navController: NavHostController) {
     var phonenumber by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }

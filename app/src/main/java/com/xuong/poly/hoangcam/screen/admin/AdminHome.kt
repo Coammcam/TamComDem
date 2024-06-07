@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -33,9 +34,12 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.api.HttpReq
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.OrderModel
+import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.primary1
 import com.xuong.poly.hoangcam.ui.theme.primary2
@@ -101,7 +105,7 @@ val api = HttpReq.getInstance()
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AdminHomeView(modifier: Modifier){
+fun AdminHomeView(modifier: Modifier, navController: NavHostController){
 
     val orders = remember {
         mutableStateListOf<OrderModel>()
@@ -118,10 +122,10 @@ fun AdminHomeView(modifier: Modifier){
 
     Scaffold(
         topBar = {
-            HeaderWithAvatar(modifier = modifier, username = "Test")
+            HeaderWithAvatar(modifier = modifier, username = "Cum tứm đim")
         },
         bottomBar = {
-            BottomNavigation()
+            AdminBottomNavigation(navController)
         },
         containerColor = primary1
     ) {paddingValues ->
@@ -169,7 +173,5 @@ fun AdminHomeView(modifier: Modifier){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Previewing3(){
-    AdminHomeView(modifier = Modifier)
-//    Header(modifier = Modifier, title = "Placeholder")
-//    OrderListItem(modifier = Modifier)
+    AdminHomeView(modifier = Modifier, navController = NavHostController(LocalContext.current))
 }

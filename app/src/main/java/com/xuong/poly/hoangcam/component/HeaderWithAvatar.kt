@@ -1,5 +1,6 @@
 package com.xuong.poly.hoangcam.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,13 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.ui.theme.primary1
 
 @Composable
-fun HeaderWithAvatar(modifier: Modifier, username: String){
+fun HeaderWithAvatar(modifier: Modifier, username: String) {
     Row(
         modifier
             .fillMaxWidth()
@@ -27,9 +30,10 @@ fun HeaderWithAvatar(modifier: Modifier, username: String){
             .padding(20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = modifier
-            .size(60.dp)
-            .background(Color.White)
+        Image(
+            painterResource(id = R.drawable.logo_app),
+            contentDescription = null,
+            Modifier.size(60.dp)
         )
         Text(
             text = username,
