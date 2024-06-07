@@ -1,6 +1,8 @@
 package com.xuong.poly.hoangcam.screen.admin
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +41,8 @@ import com.xuong.poly.hoangcam.ui.theme.primary1
 import com.xuong.poly.hoangcam.ui.theme.primary2
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -92,12 +99,15 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel){
 
 val api = HttpReq.getInstance()
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AdminHomeView(modifier: Modifier){
 
     val orders = remember {
         mutableStateListOf<OrderModel>()
     }
+
+    val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
 
     println("init getting data")
     LaunchedEffect(key1 = Unit) {
@@ -120,6 +130,34 @@ fun AdminHomeView(modifier: Modifier){
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             content = {
+                item {
+                    Column(
+                        modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Text(
+                            text = "Today: $currentDate",
+                            fontSize = 25.sp,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "Số lượng đơn hàng: ${orders.size}",
+                            fontSize = 25.sp,
+                            color = Color.White
+                        )
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(SpanStyle(Color.White)){
+                                    append("Doanh thu: ")
+                                }
+                                withStyle(SpanStyle(Color.Red)){
+                                    append("69K")
+                                }
+                            },
+                            fontSize = 25.sp,
+                        )
+                    }
+                }
                 items(orders, key = {item -> item.id}){item ->
                     OrderListItem(modifier = modifier, item)
                 }
