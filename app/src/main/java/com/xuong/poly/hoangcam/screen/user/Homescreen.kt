@@ -129,7 +129,7 @@ fun MainView(modifier: Modifier){
     }
 
     for (nums in 1..20){
-        listItem.add(ItemModel(nums, "Test $nums", 10f, 1, R.drawable.comsuon, 1))
+        listItem.add(ItemModel(nums.toString(), "Test $nums", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(

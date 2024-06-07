@@ -54,7 +54,7 @@ private fun TotalTextRow(modifier: Modifier, title: String, amount: String){
 fun AdminOrderDetailView(modifier: Modifier){
 
     for (nums in 1..2){
-        ListCart.add(ItemModel(nums, "Test", 10f, 1, R.drawable.comsuon, 1))
+        ListCart.add(ItemModel(nums.toString(), "Test", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(
