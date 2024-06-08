@@ -5,9 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 object HttpReq {
-
     val URL_Base = "http://10.0.2.2:3000/"
-
     fun getInstance(): ApiService {
         return Retrofit
             .Builder()
@@ -16,5 +14,4 @@ object HttpReq {
             .build()
             .create(ApiService::class.java)
     }
-
 }
