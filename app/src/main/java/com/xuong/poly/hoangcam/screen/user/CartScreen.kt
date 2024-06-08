@@ -1,21 +1,13 @@
 package com.xuong.poly.hoangcam.screen.user
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -23,18 +15,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +28,7 @@ import androidx.core.graphics.toColorInt
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.component.Header
 import com.xuong.poly.hoangcam.component.ListFoodItem
-import com.xuong.poly.hoangcam.model.ItemModel
+import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
 
 @Composable
@@ -58,7 +44,7 @@ private fun StickyHeader(modifier: Modifier, name: String){
     }
 }
 
-val ListCart = mutableListOf<ItemModel>()
+val ListCart = mutableListOf<FoodModel>()
 
 @Composable
 private fun TotalTextRow(modifier: Modifier, title: String, amount: Int){
@@ -89,7 +75,7 @@ fun CartScreenView(modifier: Modifier){
     }
 
     for (nums in 1..2){
-        ListCart.add(ItemModel(nums.toString(), "Test", 10f, 1, R.drawable.comsuon, 1))
+        ListCart.add(FoodModel(nums.toString(), "Test", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(
