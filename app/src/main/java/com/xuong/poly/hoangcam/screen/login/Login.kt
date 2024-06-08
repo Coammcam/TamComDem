@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -33,6 +35,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,6 +91,7 @@ fun Login(navController: NavHostController) {
             val context = LocalContext.current
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
+            var passwordVisible by remember { mutableStateOf(false) }
 
             Column(
                 modifier = Modifier
@@ -136,6 +142,18 @@ fun Login(navController: NavHostController) {
                         disabledContainerColor = Color.White,
                         unfocusedIndicatorColor = Color.White,
                     ),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val icon =
+                            if (passwordVisible) R.drawable.visibility_off else R.drawable.visibility
+                        Icon(painterResource(id = icon),
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                passwordVisible = !passwordVisible
+                            })
+                    },
+
                     singleLine = true,
                     maxLines = 1,
                 )
@@ -143,7 +161,9 @@ fun Login(navController: NavHostController) {
                 Button(
                     onClick = {
                         if (email.isBlank() || password.isBlank()) {
-                            Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT
+                            ).show()
                         } else if (email == "user" && password == "user") {
                             navController.navigate(ROUTE_SCREEN_NAME.HOMESCREEN.name)
                         } else if (email == "admin" && password == "admin") {
@@ -174,16 +194,14 @@ fun Login(navController: NavHostController) {
                         textAlign = TextAlign.Center,
                     )
 
-                    Text(
-                        text = "Đăng kí ngay",
+                    Text(text = "Đăng kí ngay",
                         fontSize = 12.sp,
                         fontFamily = Inter,
                         color = Color.Green,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.clickable {
                             navController.navigate(ROUTE_SCREEN_NAME.SIGNUP.name)
-                        }
-                    )
+                        })
                 }
             }
         }
