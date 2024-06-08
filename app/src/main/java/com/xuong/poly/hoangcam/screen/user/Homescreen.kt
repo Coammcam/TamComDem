@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
-import com.xuong.poly.hoangcam.model.ItemModel
+import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.navigation.BottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
@@ -162,7 +162,7 @@ private fun FilterChip(modifier: Modifier, data: ChipModel) {
 }
 
 @Composable
-private fun ListItem(modifier: Modifier, data: ItemModel) {
+private fun ListItem(modifier: Modifier, data: FoodModel) {
 
     var quantity by rememberSaveable {
         mutableIntStateOf(data.quantity)
@@ -248,14 +248,14 @@ private fun ListItem(modifier: Modifier, data: ItemModel) {
 fun MainView(modifier: Modifier, navController: NavHostController) {
 
     val listChip = mutableListOf<ChipModel>()
-    val listItem = mutableListOf<ItemModel>()
+    val listItem = mutableListOf<FoodModel>()
 
     for (nums in 1..4) {
         listChip.add(ChipModel(nums, "Đồ ăn thêm", R.drawable.comsuon))
     }
 
     for (nums in 1..20){
-        listItem.add(ItemModel(nums.toString(), "Test $nums", 10f, 1, R.drawable.comsuon, 1))
+        listItem.add(FoodModel(nums.toString(), "Test $nums", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(bottomBar = {

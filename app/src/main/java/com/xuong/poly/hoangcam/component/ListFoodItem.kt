@@ -30,10 +30,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import com.xuong.poly.hoangcam.model.ItemModel
+import com.xuong.poly.hoangcam.model.FoodModel
 
 @Composable
-fun ListFoodItem(modifier: Modifier, data: ItemModel, cancelable: Boolean){
+fun ListFoodItem(modifier: Modifier, data: FoodModel, cancelable: Boolean){
 
     var quantity by rememberSaveable {
         mutableIntStateOf(data.quantity)
