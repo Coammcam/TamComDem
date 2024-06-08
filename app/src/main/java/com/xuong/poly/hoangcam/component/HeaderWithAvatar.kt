@@ -2,6 +2,7 @@ package com.xuong.poly.hoangcam.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,48 +40,54 @@ fun HeaderWithAvatar(
     trailingIcon: Boolean = true,
     navController: NavController? = null
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth().background(Color("#252121".toColorInt()))
-                    .padding(vertical = 12.dp, horizontal = 4.dp)
-        ,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier
     ) {
-        if (leadingIcon && navController != null) {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    painterResource(id = R.drawable.back),
-                    contentDescription = "Back",
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color("#252121".toColorInt()))
+                .padding(vertical = 12.dp, horizontal = 4.dp)
+            ,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (leadingIcon && navController != null) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        painterResource(id = R.drawable.back),
+                        contentDescription = "Back",
 //                    modifier = Modifier.size(24.dp),
-                    tint = Color.White
+                        tint = Color.White
+                    )
+                }
+            }
+            Spacer(modifier.width(5.dp))
+
+            Image(
+                painterResource(id = R.drawable.logo_app),
+                contentDescription = null,
+                Modifier.size(45.dp)
+            )
+            Text(
+                text = name,
+                color = Color.White,
+                fontSize = 17.sp,
+                fontFamily = Inter,
+                textAlign = TextAlign.Start,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f)
+            )
+            if (trailingIcon) {
+                Image(
+                    painterResource(id = R.drawable.bell),
+                    contentDescription = null,
+                    modifier.size(20.dp)
                 )
             }
         }
-        Spacer(modifier.width(5.dp))
-
-        Image(
-            painterResource(id = R.drawable.logo_app),
-            contentDescription = null,
-            Modifier.size(45.dp)
-        )
-        Text(
-            text = name,
-            color = Color.White,
-            fontSize = 17.sp,
-            fontFamily = Inter,
-            textAlign = TextAlign.Start,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .weight(1f)
-        )
-        if (trailingIcon) {
-            Image(
-                painterResource(id = R.drawable.bell),
-                contentDescription = null,
-                modifier.size(20.dp)
-            )
-        }
+        Divider(modifier, 3.dp, Color.Black)
     }
 }
 
