@@ -1,8 +1,6 @@
-package com.xuong.poly.hoangcam.screen.admin
+package com.xuong.poly.hoangcam.screen.admin.category
 
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,35 +12,41 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
+import com.xuong.poly.hoangcam.api.HttpReq
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
-import com.xuong.poly.hoangcam.model.ItemTypeFood
-import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
+import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+private val api = HttpReq.getInstance()
+
 @Composable
-fun AdminDeleteDish(navController: NavHostController) {
+fun AdminEditCategory(navController: NavHostController) {
+
+    val foods = rememberSaveable() {
+        mutableListOf<FoodModel>()
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        foods.addAll(api.getFoods().body()!!.toMutableList())
+    }
+
     Scaffold(topBar = {
         HeaderWithAvatar(
             modifier = Modifier,
@@ -70,8 +74,8 @@ fun AdminDeleteDish(navController: NavHostController) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(listTypeCategory_del) { model ->
-                        RowListType_del(model = model)
+                    items(foods) { model ->
+                        RowListType(model = model)
                     }
                 }
             }
@@ -79,14 +83,14 @@ fun AdminDeleteDish(navController: NavHostController) {
     }
 }
 
-val listDish_del = mutableListOf(
-    ItemTypeFood(1, "Bì chả"),
-    ItemTypeFood(2, "Sườn mỡ"),
-    ItemTypeFood(3, "Thịt chó"),
-)
+//val listTypeCategory = mutableListOf(
+//    ItemTypeFood(1, "Bì chả"),
+//    ItemTypeFood(2, "Sườn mỡ"),
+//    ItemTypeFood(3, "Sườn nạc"),
+//)
 
 @Composable
-fun RowListTDish_del(model: ItemTypeFood) {
+fun RowListType(model: FoodModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -95,7 +99,7 @@ fun RowListTDish_del(model: ItemTypeFood) {
             .padding(vertical = 24.dp, horizontal = 16.dp),
     ) {
         Text(
-            text = model.id.toString(),
+            text = model.id,
             modifier = Modifier.weight(3f),
             color = Color.White,
             fontFamily = Inter,
@@ -109,7 +113,7 @@ fun RowListTDish_del(model: ItemTypeFood) {
             fontSize = 15.sp
         )
         Icon(
-            painterResource(id = R.drawable.delete),
+            painterResource(id = R.drawable.edit),
             contentDescription = null,
             Modifier
                 .size(20.dp)
@@ -122,5 +126,5 @@ fun RowListTDish_del(model: ItemTypeFood) {
 @Preview
 @Composable
 private fun Preview() {
-    AdminDeleteDish(navController = NavHostController(context = LocalContext.current))
+    AdminEditCategory(navController = NavHostController(context = LocalContext.current))
 }
