@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.sp
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.component.ListFoodItem
-import com.xuong.poly.hoangcam.model.ItemModel
+import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.primary1
 import com.xuong.poly.hoangcam.ui.theme.primary2
 
-val ListCart = mutableListOf<ItemModel>()
+val ListCart = mutableListOf<FoodModel>()
 
 @Composable
 private fun TotalTextRow(modifier: Modifier, title: String, amount: String){
@@ -54,7 +54,7 @@ private fun TotalTextRow(modifier: Modifier, title: String, amount: String){
 fun AdminOrderDetailView(modifier: Modifier){
 
     for (nums in 1..2){
-        ListCart.add(ItemModel(nums.toString(), "Test", 10f, 1, R.drawable.comsuon, 1))
+        ListCart.add(FoodModel(nums.toString(), "Test", 10f, 1, R.drawable.comsuon, 1))
     }
 
     Scaffold(

@@ -44,80 +44,72 @@ fun AdminSupport(navController: NavHostController) {
             modifier = Modifier, leadingIcon = false, name = "Cum tứm đim", trailingIcon = false, navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
-        Box(
+        Column(
             modifier = Modifier
-                .padding(contentPadding)
-                .background(Color.Black)
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
+                .padding(top = 3.dp, bottom = 3.dp)
+                .fillMaxSize()
+                .background(Color("#252121".toColorInt()))
+                .padding(30.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(top = 3.dp, bottom = 3.dp)
-                    .fillMaxSize()
-                    .background(Color("#252121".toColorInt()))
-                    .padding(30.dp),
-                verticalArrangement = Arrangement.Center
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.zalo),
-                        contentDescription = null,
-                        Modifier.size(50.dp)
-                    )
-                    Text(
-                        text = "0966658492",
-                        fontFamily = Inter,
-                        color = Color.White,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(horizontal = 30.dp)
-                    )
-                }
+                Image(
+                    painterResource(id = R.drawable.zalo),
+                    contentDescription = null,
+                    Modifier.size(50.dp)
+                )
+                Text(
+                    text = "0966658492",
+                    fontFamily = Inter,
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    modifier = Modifier.padding(horizontal = 30.dp)
+                )
+            }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.gmail),
-                        contentDescription = null,
-                        Modifier.size(50.dp)
-                    )
-                    Text(
-                        text = "hoangcamph403517@fpt.edu.vn",
-                        fontFamily = Inter,
-                        color = Color.White,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(horizontal = 30.dp)
-                    )
-                }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
+            ) {
+                Image(
+                    painterResource(id = R.drawable.gmail),
+                    contentDescription = null,
+                    Modifier.size(50.dp)
+                )
+                Text(
+                    text = "hoangcamph403517@fpt.edu.vn",
+                    fontFamily = Inter,
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    modifier = Modifier.padding(horizontal = 30.dp)
+                )
+            }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.safari),
-                        contentDescription = null,
-                        Modifier.size(50.dp)
-                    )
-                    Text(
-                        text = "https://comtamdem.com",
-                        fontFamily = Inter,
-                        color = Color.White,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(horizontal = 30.dp)
-                    )
-                }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
+            ) {
+                Image(
+                    painterResource(id = R.drawable.safari),
+                    contentDescription = null,
+                    Modifier.size(50.dp)
+                )
+                Text(
+                    text = "https://comtamdem.com",
+                    fontFamily = Inter,
+                    color = Color.White,
+                    fontSize = 13.sp,
+                    modifier = Modifier.padding(horizontal = 30.dp)
+                )
             }
         }
     }

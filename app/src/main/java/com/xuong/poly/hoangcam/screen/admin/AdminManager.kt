@@ -35,9 +35,6 @@ import com.xuong.poly.hoangcam.main.ROUTE_SCREEN_NAME
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AdminManager(navController: NavHostController) {
     Scaffold(topBar = {
@@ -49,87 +46,80 @@ fun AdminManager(navController: NavHostController) {
             navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
-        Box(
+        Column(
             modifier = Modifier
-                .padding(contentPadding)
-                .background(Color.Black)
                 .fillMaxSize()
+                .padding(contentPadding)
+                .background(Color("#252121".toColorInt()))
+                .padding(16.dp)
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 3.dp)
-                    .background(Color("#252121".toColorInt()))
-                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGECATEGORY.name)
+                    }, verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGECATEGORY.name)
-                        }, verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.logo_app),
-                        contentDescription = null,
-                        Modifier.size(45.dp)
-                    )
-                    Text(
-                        text = "Quản lý loại món ăn",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontFamily = Inter,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
-                }
+                Image(
+                    painterResource(id = R.drawable.logo_app),
+                    contentDescription = null,
+                    Modifier.size(45.dp)
+                )
+                Text(
+                    text = "Quản lý loại món ăn",
+                    color = Color.White,
+                    fontSize = 17.sp,
+                    fontFamily = Inter,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
 
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .fillMaxWidth()
-                        .clickable {
-                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGERDISH.name)
-                        }) {
-                    Image(
-                        painterResource(id = R.drawable.logo_app),
-                        contentDescription = null,
-                        Modifier.size(45.dp)
-                    )
-                    Text(
-                        text = "Quản lý món ăn",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontFamily = Inter,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
-                }
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINMANAGERDISH.name)
+                    }) {
+                Image(
+                    painterResource(id = R.drawable.logo_app),
+                    contentDescription = null,
+                    Modifier.size(45.dp)
+                )
+                Text(
+                    text = "Quản lý món ăn",
+                    color = Color.White,
+                    fontSize = 17.sp,
+                    fontFamily = Inter,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
 
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .fillMaxWidth()
-                        .clickable {
-                            navController?.navigate(ROUTE_SCREEN_NAME.ADMINHISTORY.name)
-                        }) {
-                    Image(
-                        painterResource(id = R.drawable.logo_app),
-                        contentDescription = null,
-                        Modifier.size(45.dp)
-                    )
-                    Text(
-                        text = "Lịch sử",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontFamily = Inter,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
-                }
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        navController?.navigate(ROUTE_SCREEN_NAME.ADMINHISTORY.name)
+                    }) {
+                Image(
+                    painterResource(id = R.drawable.logo_app),
+                    contentDescription = null,
+                    Modifier.size(45.dp)
+                )
+                Text(
+                    text = "Lịch sử",
+                    color = Color.White,
+                    fontSize = 17.sp,
+                    fontFamily = Inter,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
             }
         }
     }

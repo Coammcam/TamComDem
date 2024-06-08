@@ -110,7 +110,7 @@ private fun OrderListItem(modifier: Modifier, order: OrderModel) {
     }
 }
 
-val api = HttpReq.getInstance()
+private val api = HttpReq.getInstance()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -122,56 +122,29 @@ fun AdminHomeView(modifier: Modifier, navController: NavHostController) {
     }
 
     val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+//    val currentDate = ""
 
     println("init getting data")
     LaunchedEffect(key1 = Unit) {
         println("getting data")
-        delay(5000)
-//        orders.addAll(api.getOrders().body()!!.toMutableList())
+        delay(100)
+        orders.addAll(api.getOrders().body()!!.toMutableList())
     }
 
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Row(
-                    modifier = Modifier.padding(end = 13.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.logo_app),
-                        contentDescription = null,
-                        Modifier.size(45.dp)
-                    )
-                    Text(
-                        text = "Cum tứm đim",
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        fontFamily = Inter,
-                        textAlign = TextAlign.Start,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier
-                            .padding(start = 10.dp)
-                            .weight(1f)
-                    )
-
-                    Image(
-                        painterResource(id = R.drawable.bell),
-                        contentDescription = null,
-                        modifier.size(20.dp)
-                    )
-
-                }
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
-        )
-    }, bottomBar = {
-        AdminBottomNavigation(navController)
-    }, containerColor = primary1
+    Scaffold(
+        topBar = {
+            HeaderWithAvatar(modifier = modifier, name = "Tấm Cơm Đêm")
+        },
+        bottomBar = {
+            AdminBottomNavigation(navController)
+        },
+        containerColor = primary1
     ) { paddingValues ->
         LazyColumn(
             modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(10.dp),
+            contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(10.dp),
             content = {
                 item {

@@ -26,9 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
+import com.xuong.poly.hoangcam.component.Header
+import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.Bill
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
+import com.xuong.poly.hoangcam.ui.theme.primary1
+import com.xuong.poly.hoangcam.ui.theme.primary2
 
 
 val ListBill = mutableListOf(
@@ -40,41 +44,22 @@ val ListBill = mutableListOf(
     Bill("Đơn hàng đã bị huỷ", 3, "10/3/2024", "9:20", 98f),
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AdminHistory(navController: NavHostController) {
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = "Lịch sử",
-                    color = Color.White,
-                    fontSize = 17.sp,
-                    fontFamily = Inter,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 13.dp),
-                    fontWeight = FontWeight.SemiBold
-                )
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color("#252121".toColorInt()))
-        )
-    }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
-        Box(
+    Scaffold(
+        topBar = {
+            HeaderWithAvatar(modifier = Modifier, name = "Lịch sử", navController = navController, leadingIcon = true, trailingIcon = false)
+        },
+        containerColor = primary1
+    ) { contentPadding ->
+        LazyColumn(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(contentPadding)
-                .background(Color.Black)
+                .padding(16.dp)
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                items(ListBill) { model ->
-                    RowBill(model = model)
-                }
+            items(ListBill) { model ->
+                RowBill(model = model)
             }
         }
     }
@@ -88,7 +73,7 @@ fun RowBill(model: Bill) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp)
-            .background(Color("#2F2D2D".toColorInt()), shape = RoundedCornerShape(20.dp))
+            .background(primary2, shape = RoundedCornerShape(20.dp))
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
