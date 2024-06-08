@@ -1,4 +1,4 @@
-package com.xuong.poly.hoangcam.screen.user
+package com.xuong.poly.hoangcam.screen.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
