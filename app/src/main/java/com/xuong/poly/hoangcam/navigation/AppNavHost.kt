@@ -5,22 +5,22 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.xuong.poly.hoangcam.screen.admin.AdminAddCategory
-import com.xuong.poly.hoangcam.screen.admin.AdminAddDish
-import com.xuong.poly.hoangcam.screen.admin.AdminDeleteCategory
-import com.xuong.poly.hoangcam.screen.admin.AdminDeleteDish
-import com.xuong.poly.hoangcam.screen.admin.AdminEditCategory
-import com.xuong.poly.hoangcam.screen.admin.AdminEditDish
+import com.xuong.poly.hoangcam.screen.admin.category.AdminAddCategory
+import com.xuong.poly.hoangcam.screen.admin.dish.AdminAddDish
+import com.xuong.poly.hoangcam.screen.admin.category.AdminDeleteCategory
+import com.xuong.poly.hoangcam.screen.admin.dish.AdminDeleteDish
+import com.xuong.poly.hoangcam.screen.admin.category.AdminEditCategory
+import com.xuong.poly.hoangcam.screen.admin.dish.AdminEditDish
 import com.xuong.poly.hoangcam.screen.admin.AdminHistory
 import com.xuong.poly.hoangcam.screen.admin.AdminHomeView
 import com.xuong.poly.hoangcam.screen.admin.AdminManager
-import com.xuong.poly.hoangcam.screen.admin.AdminManagerCategories
-import com.xuong.poly.hoangcam.screen.admin.AdminManagerDish
+import com.xuong.poly.hoangcam.screen.admin.category.AdminManagerCategories
+import com.xuong.poly.hoangcam.screen.admin.dish.AdminManagerDish
 import com.xuong.poly.hoangcam.screen.admin.AdminSupport
-import com.xuong.poly.hoangcam.screen.user.Boarding
-import com.xuong.poly.hoangcam.screen.user.Login
+import com.xuong.poly.hoangcam.screen.login.Boarding
+import com.xuong.poly.hoangcam.screen.login.Login
 import com.xuong.poly.hoangcam.screen.user.MainView
-import com.xuong.poly.hoangcam.screen.user.UpdateInfo
+import com.xuong.poly.hoangcam.screen.login.UpdateInfo
 
 enum class ROUTE_SCREEN_NAME {
     BOARDING, LOGIN, SIGNUP, OTP, HOMESCREEN, CARTHISTORY, CARTHISTORYWITHOUTBILLS, BILLDETAIL, PAYMENT, PROFILE, ADMINHOME, ADMINMANAGER, ADMINADDCATEGORY, ADMINMANAGECATEGORY, ADMINMANAGERDISH, ADMINHISTORY, ADMINSUPPORT, ADMINEDITCATEGORY, ADMINDELETECATEGORY, ADMINADDDISH, ADMINEDITDISH, ADMINDELETEDISH
