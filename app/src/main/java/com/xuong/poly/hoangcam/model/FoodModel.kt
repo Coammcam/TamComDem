@@ -1,6 +1,6 @@
 package com.xuong.poly.hoangcam.model
 
-data class ItemModel(
+data class FoodModel(
     val id: String,
     val name: String,
     val price: Float,
