@@ -42,80 +42,73 @@ fun AdminBottomNavigation(navController: NavHostController) {
         val selectedColor = Color("#FFB703".toColorInt())
         val unselectedColor = Color.White
 
-        NavigationBarItem(
-            selected = currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name,
-            onClick = {
-                if (currentRoute != ROUTE_SCREEN_NAME.ADMINHOME.name) {
-                    navController.navigate(ROUTE_SCREEN_NAME.ADMINHOME.name) {
-                        popUpTo(navController.graph.startDestinationId)
-                        launchSingleTop = true
+        NavigationBarItem(selected = currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name, onClick = {
+            if (currentRoute != ROUTE_SCREEN_NAME.ADMINHOME.name) {
+                navController.navigate(ROUTE_SCREEN_NAME.ADMINHOME.name) {
+                    popUpTo(navController.graph.startDestinationId)
+                    launchSingleTop = true
 
-                    }
                 }
-            },
-            icon = {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painterResource(id = R.drawable.home),
-                        contentDescription = null,
-                        Modifier.size(35.dp),
-                        tint = if (currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name) selectedColor else unselectedColor
-                        )
-                    Text(
-                        text = "Trang chủ",
-                        fontSize = 13.sp,
-                        fontFamily = Inter,
-                        color = if (currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name) selectedColor else unselectedColor,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = selectedColor,
-                unselectedIconColor = unselectedColor,
-                selectedTextColor = selectedColor,
-                unselectedTextColor = unselectedColor,
-                indicatorColor = Color("#312C2C".toColorInt())
-            )
+            }
+        }, icon = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    painterResource(id = R.drawable.home),
+                    contentDescription = null,
+                    Modifier.size(35.dp),
+                    tint = if (currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name) selectedColor else unselectedColor
+                )
+                Text(
+                    text = "Trang chủ",
+                    fontSize = 13.sp,
+                    fontFamily = Inter,
+                    color = if (currentRoute == ROUTE_SCREEN_NAME.ADMINHOME.name) selectedColor else unselectedColor,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        }, colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = selectedColor,
+            unselectedIconColor = unselectedColor,
+            selectedTextColor = selectedColor,
+            unselectedTextColor = unselectedColor,
+            indicatorColor = Color("#312C2C".toColorInt())
         )
-        NavigationBarItem(
-            selected = false,
-            onClick = { /*TODO*/ },
-            icon = {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painterResource(id = R.drawable.chart),
-                        contentDescription = null,
-                        Modifier.size(35.dp),
-//                        if (selectedColor == true) {
-//                            Color("#FFB703".toColorInt())
-//                        } else {
-//                            Color.White
-//                        }
-                    )
-                    Text(
-                        text = "Thống kê",
-                        fontSize = 13.sp,
-                        fontFamily = Inter,
-                        color = Color.White,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = selectedColor,
-                unselectedIconColor = unselectedColor,
-                selectedTextColor = selectedColor,
-                unselectedTextColor = unselectedColor,
-                indicatorColor = Color("#312C2C".toColorInt())
-            )
         )
-        NavigationBarItem(
-            selected = currentRoute == ROUTE_SCREEN_NAME.ADMINMANAGER.name,
+        NavigationBarItem(selected = currentRoute == ROUTE_SCREEN_NAME.ADMINCHART.name, onClick = {
+            if (currentRoute != ROUTE_SCREEN_NAME.ADMINCHART.name) {
+                navController.navigate(ROUTE_SCREEN_NAME.ADMINCHART.name) {
+                    popUpTo(navController.graph.startDestinationId)
+                    launchSingleTop = true
+                }
+            }
+        }, icon = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    painterResource(id = R.drawable.chart),
+                    contentDescription = null,
+                    Modifier.size(35.dp),
+                )
+                Text(
+                    text = "Thống kê",
+                    fontSize = 13.sp,
+                    fontFamily = Inter,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        }, colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = selectedColor,
+            unselectedIconColor = unselectedColor,
+            selectedTextColor = selectedColor,
+            unselectedTextColor = unselectedColor,
+            indicatorColor = Color("#312C2C".toColorInt())
+        )
+        )
+        NavigationBarItem(selected = currentRoute == ROUTE_SCREEN_NAME.ADMINMANAGER.name,
             onClick = {
                 if (currentRoute != ROUTE_SCREEN_NAME.ADMINMANAGER.name) {
                     navController.navigate(ROUTE_SCREEN_NAME.ADMINMANAGER.name) {
@@ -150,9 +143,8 @@ fun AdminBottomNavigation(navController: NavHostController) {
                 unselectedTextColor = unselectedColor,
                 indicatorColor = Color("#312C2C".toColorInt())
             )
-            )
-        NavigationBarItem(
-            selected = currentRoute == ROUTE_SCREEN_NAME.ADMINSUPPORT.name,
+        )
+        NavigationBarItem(selected = currentRoute == ROUTE_SCREEN_NAME.ADMINSUPPORT.name,
             onClick = {
                 if (currentRoute != ROUTE_SCREEN_NAME.ADMINSUPPORT.name) {
                     navController.navigate(ROUTE_SCREEN_NAME.ADMINSUPPORT.name) {
