@@ -81,6 +81,7 @@ fun AdminAddDish(navController: NavHostController) {
     when(statusCode.value){
         0 -> {}
         201->{
+           adminDishModel.resetStatusCode()
            Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
         }
         else->{
