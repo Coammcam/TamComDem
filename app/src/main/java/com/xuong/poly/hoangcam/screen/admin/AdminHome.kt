@@ -133,7 +133,7 @@ fun AdminHomeView(modifier: Modifier, navController: NavHostController) {
 
     Scaffold(
         topBar = {
-            HeaderWithAvatar(modifier = modifier, name = "Tấm Cơm Đêm")
+            HeaderWithAvatar(modifier = modifier, name = "Tấm cơm đêm")
         },
         bottomBar = {
             AdminBottomNavigation(navController)

@@ -38,7 +38,7 @@ fun AdminManagerCategories(navController: NavHostController) {
         HeaderWithAvatar(
             modifier = Modifier,
             leadingIcon = true,
-            name = "Cum tứm đim",
+            name = "Tấm cơm đêm",
             trailingIcon = false,
             navController = navController
         )

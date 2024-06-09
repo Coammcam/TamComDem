@@ -41,7 +41,7 @@ fun AdminManager(navController: NavHostController) {
         HeaderWithAvatar(
             modifier = Modifier,
             leadingIcon = false ,
-            name = "Cum tứm đim",
+            name = "Tấm cơm đêm",
             trailingIcon = false,
             navController = navController
         )

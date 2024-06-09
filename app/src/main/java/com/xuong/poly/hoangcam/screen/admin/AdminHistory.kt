@@ -63,8 +63,6 @@ fun AdminHistory(navController: NavHostController) {
             }
         }
     }
-
-
 }
 
 @Composable
