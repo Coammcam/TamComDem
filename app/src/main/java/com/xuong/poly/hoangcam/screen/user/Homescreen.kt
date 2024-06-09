@@ -282,7 +282,7 @@ fun MainView(modifier: Modifier, navController: NavHostController) {
                         }
                     }
                 }
-                items(listItem, key = { item -> item.id }) { item ->
+                items(listItem, key = { item -> item.id!! }) { item ->
                     ListItem(modifier = modifier, data = item)
                 }
             })
