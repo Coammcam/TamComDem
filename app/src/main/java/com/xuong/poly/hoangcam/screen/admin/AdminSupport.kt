@@ -41,7 +41,7 @@ import com.xuong.poly.hoangcam.ui.theme.Inter
 fun AdminSupport(navController: NavHostController) {
     Scaffold(topBar = {
         HeaderWithAvatar(
-            modifier = Modifier, leadingIcon = false, name = "Cum tứm đim", trailingIcon = false, navController = navController
+            modifier = Modifier, leadingIcon = false, name = "Tấm cơm đêm", trailingIcon = false, navController = navController
         )
     }, bottomBar = { AdminBottomNavigation(navController) }) { contentPadding ->
         Column(

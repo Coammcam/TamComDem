@@ -2,33 +2,32 @@ package com.xuong.poly.hoangcam.screen.admin.dish
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.xuong.poly.hoangcam.R
+import com.xuong.poly.hoangcam.component.ActionType
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
+import com.xuong.poly.hoangcam.component.RowList
+import com.xuong.poly.hoangcam.model.ItemTypeFood
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
 import com.xuong.poly.hoangcam.viewmodel.AdminDishModel
@@ -44,7 +43,7 @@ fun AdminDeleteDish(navController: NavHostController) {
         HeaderWithAvatar(
             modifier = Modifier,
             leadingIcon = true,
-            name = "Cum tứm đim",
+            name = "Tấm cơm đêm",
             trailingIcon = false,
             navController = navController
         )

@@ -102,7 +102,7 @@ fun AdminAddDish(navController: NavHostController) {
         HeaderWithAvatar(
             modifier = Modifier,
             leadingIcon = true,
-            name = "Cum tứm đim",
+            name = "Tấm cơm đêm",
             trailingIcon = false,
             navController = navController
         )
@@ -167,6 +167,7 @@ fun AdminAddDish(navController: NavHostController) {
                         )
                     }
                 }
+
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },

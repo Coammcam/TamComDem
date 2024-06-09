@@ -47,15 +47,13 @@ fun HeaderWithAvatar(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color("#252121".toColorInt()))
-                .padding(vertical = 12.dp, horizontal = 4.dp)
-            ,
+                .padding(vertical = 12.dp, horizontal = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (leadingIcon && navController != null) {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        painterResource(id = R.drawable.back),
-                        contentDescription = "Back",
+                        painterResource(id = R.drawable.back), contentDescription = "Back",
 //                    modifier = Modifier.size(24.dp),
                         tint = Color.White
                     )
@@ -95,7 +93,12 @@ fun HeaderWithAvatar(
 @Composable
 private fun Preview() {
     HeaderWithAvatar(
-        modifier = Modifier, leadingIcon = true, name = "Cum tứm đim", trailingIcon = true, navController = NavController(
-            LocalContext.current)
+        modifier = Modifier,
+        leadingIcon = true,
+        name = "Tấm cơm đêm",
+        trailingIcon = true,
+        navController = NavController(
+            LocalContext.current
+        )
     )
 }

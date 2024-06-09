@@ -29,7 +29,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.api.HttpReq
+import com.xuong.poly.hoangcam.component.ActionType
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
+import com.xuong.poly.hoangcam.component.RowList
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.navigation.AdminBottomNavigation
 import com.xuong.poly.hoangcam.ui.theme.Inter
@@ -50,7 +52,7 @@ fun AdminEditDish(navController: NavHostController) {
             HeaderWithAvatar(
                 modifier = Modifier,
                 leadingIcon = true,
-                name = "Cum tứm đim",
+                name = "Tấm cơm đêm",
                 trailingIcon = false,
                 navController = navController)
         }, bottomBar = {
@@ -70,38 +72,39 @@ fun AdminEditDish(navController: NavHostController) {
     }
 }
 
-@Composable
-fun RowListDish(model: FoodModel) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color("#2F2D2D".toColorInt()), shape = RoundedCornerShape(10.dp))
-            .padding(vertical = 24.dp, horizontal = 16.dp),
-    ) {
-        Text(
-            text = model.id!!,
-            modifier = Modifier.weight(3f),
-            color = Color.White,
-            fontFamily = Inter,
-            fontSize = 15.sp
-        )
-        Text(
-            text = model.name,
-            modifier = Modifier.weight(8f),
-            color = Color.White,
-            fontFamily = Inter,
-            fontSize = 15.sp
-        )
-        Icon(
-            painterResource(id = R.drawable.edit),
-            contentDescription = null,
-            Modifier
-                .size(20.dp)
-                .weight(1f),
-            tint = Color.White
-        )
-    }
-}
+//@Composable
+//fun RowListDish(model: FoodModel) {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+////            .padding(bottom = 20.dp)
+//            .background(Color("#2F2D2D".toColorInt()), shape = RoundedCornerShape(10.dp))
+//            .padding(vertical = 24.dp, horizontal = 16.dp),
+//    ) {
+//        Text(
+//            text = model.id,
+//            modifier = Modifier.weight(3f),
+//            color = Color.White,
+//            fontFamily = Inter,
+//            fontSize = 15.sp
+//        )
+//        Text(
+//            text = model.name,
+//            modifier = Modifier.weight(8f),
+//            color = Color.White,
+//            fontFamily = Inter,
+//            fontSize = 15.sp
+//        )
+//        Icon(
+//            painterResource(id = R.drawable.edit),
+//            contentDescription = null,
+//            Modifier
+//                .size(20.dp)
+//                .weight(1f),
+//            tint = Color.White
+//        )
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable

@@ -33,7 +33,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.api.HttpReq
+import com.xuong.poly.hoangcam.component.ActionType
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
+import com.xuong.poly.hoangcam.component.RowList
 import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
@@ -50,7 +52,7 @@ fun AdminEditCategory(navController: NavHostController) {
         HeaderWithAvatar(
             modifier = Modifier,
             leadingIcon = true,
-            name = "Cum tứm đim",
+            name = "Tấm cơm đêm",
             trailingIcon = false,
             navController = navController
         )
@@ -61,7 +63,6 @@ fun AdminEditCategory(navController: NavHostController) {
                 .fillMaxSize()
                 .background(Color("#252121".toColorInt()))
                 .padding(16.dp),
-
             ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
