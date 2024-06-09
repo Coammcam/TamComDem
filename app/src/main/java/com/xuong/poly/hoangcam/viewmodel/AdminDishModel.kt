@@ -12,7 +12,7 @@ class AdminDishModel: ViewModel() {
     private val api = HttpReq.getInstance()
 
     private val _statusCode = MutableLiveData<Int>()
-    val statusCode:LiveData<Int> = _statusCode
+    val statusCode: LiveData<Int> = _statusCode
 
     private val _dishes = MutableLiveData<ArrayList<FoodModel>>()
     val dishes:LiveData<ArrayList<FoodModel>> = _dishes
