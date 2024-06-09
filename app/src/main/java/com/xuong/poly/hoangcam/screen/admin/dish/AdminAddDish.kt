@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -27,6 +28,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -38,16 +42,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.api.HttpReq
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
+import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
+import com.xuong.poly.hoangcam.viewmodel.AdminCategoryModel
+import com.xuong.poly.hoangcam.viewmodel.AdminDishModel
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -56,22 +65,37 @@ private val api = HttpReq.getInstance()
 @Composable
 fun AdminAddDish(navController: NavHostController) {
 
-    val coroutine = rememberCoroutineScope()
+//    val coroutine = rememberCoroutineScope()
 
-    var name: String by remember {
-        mutableStateOf("")
-    }
+    val adminDishModel: AdminDishModel = viewModel()
+    val statusCode = adminDishModel.statusCode.observeAsState(initial = 0)
 
-    var price: String by remember {
-        mutableStateOf("")
-    }
+    var name: String by remember { mutableStateOf("") }
+    var price: Float by remember { mutableFloatStateOf(0f) }
+    //price input fix
+    var priceString: String by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
-    var expanded by remember { mutableStateOf(false) }
-    val items = listOf("Món chính", "Sườn", "Sườn mỡ")
-    var selectedIndex by remember { mutableStateOf(0) }
+    //check http status
+    when(statusCode.value){
+        0 -> {}
+        201->{
+           Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
+        }
+        else->{
+            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    //get spinner data from category table
+    val adminCategoryModel: AdminCategoryModel = viewModel()
+    adminCategoryModel.getCategory()
+    val categories by adminCategoryModel.categories.observeAsState(emptyArray<CategoryModel>().toList())
+    //spinner stuff
+    var expanded by remember { mutableStateOf(false) }
+//    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectedCategory = "Vui lòng chọn loại món ăn"
 
     Scaffold(topBar = {
         HeaderWithAvatar(
@@ -129,7 +153,7 @@ fun AdminAddDish(navController: NavHostController) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = items[selectedIndex],
+                            text = selectedCategory,
                             fontSize = 16.sp,
                             color = Color.Black,
                         )
@@ -147,13 +171,14 @@ fun AdminAddDish(navController: NavHostController) {
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
                 ) {
-                    items.forEachIndexed { index, item ->
+                    categories.forEachIndexed { index, item ->
                         DropdownMenuItem(text = {
                             Text(
-                                text = item, modifier = Modifier
+                                text = item.name, modifier = Modifier
                             )
                         }, onClick = {
-                            selectedIndex = index
+//                            selectedIndex = index
+                            selectedCategory = categories[index].name
                             expanded = false
                         })
                     }
@@ -161,8 +186,16 @@ fun AdminAddDish(navController: NavHostController) {
 
                 Text(text = "Giá", fontFamily = Inter, color = Color.White)
 
-                TextField(value = price,
-                    onValueChange = { price = it},
+                TextField(value = priceString,
+                    onValueChange = {
+                        try{
+                            priceString = it
+                            price = it.toFloat()
+                        }catch (e: RuntimeException){
+                            println(e)
+                            price = 0f
+                        }
+                                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp)
@@ -173,8 +206,9 @@ fun AdminAddDish(navController: NavHostController) {
                         disabledContainerColor = Color.White,
                         unfocusedIndicatorColor = Color.White,
                     ),
-                    placeholder = { Text(text = "Nhập giá món ăn", fontSize = 16.sp) })
-
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    placeholder = { Text(text = "Nhập giá món ăn", fontSize = 16.sp) },
+                )
 
                 Text(text = "Tên món ăn", fontFamily = Inter, color = Color.White)
 
@@ -195,15 +229,15 @@ fun AdminAddDish(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    coroutine.launch {
-                        val status = api.addFood(FoodModel("${Random.nextInt()}", name, 69f, 10, 0, 0))
-                        if(status.code() == 201){
-                            Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
-                        }else{
-                            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-//                              println(items[selectedIndex])
+//                    coroutine.launch {
+//                        val status = api.addFood(FoodModel(null, name, 69f, 10, 0, 0))
+//                        if(status.code() == 201){
+//                            Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
+//                        }else{
+//                            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+                      adminDishModel.addDish(FoodModel(null, name, price, 0, 0, 0))
                 },
                 modifier = Modifier.padding(top = 50.dp),
                 shape = RoundedCornerShape(8.dp),
