@@ -143,9 +143,9 @@ fun AdminHomeView(modifier: Modifier, navController: NavHostController) {
         LazyColumn(
             modifier
                 .fillMaxSize()
-                .padding(10.dp),
+                .padding(16.dp),
             contentPadding = paddingValues,
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             content = {
                 item {
                     Column(
