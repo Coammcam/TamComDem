@@ -55,6 +55,7 @@ import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
+import com.xuong.poly.hoangcam.ui.theme.accent1
 import com.xuong.poly.hoangcam.viewmodel.AdminCategoryModel
 import com.xuong.poly.hoangcam.viewmodel.AdminDishModel
 import kotlinx.coroutines.launch
@@ -63,31 +64,17 @@ import kotlin.random.Random
 private val api = HttpReq.getInstance()
 
 @Composable
-fun AdminAddDish(navController: NavHostController) {
+fun AdminAddDish(navController: NavHostController, uDishId: String?) {
 
 //    val coroutine = rememberCoroutineScope()
+    val context = LocalContext.current
 
     val adminDishModel: AdminDishModel = viewModel()
-    val statusCode = adminDishModel.statusCode.observeAsState(initial = 0)
+    val statusCode by adminDishModel.statusCode.observeAsState(initial = 0)
 
     var name: String by remember { mutableStateOf("") }
     var price: Float by remember { mutableFloatStateOf(0f) }
-    //price input fix
-    var priceString: String by remember { mutableStateOf("") }
-
-    val context = LocalContext.current
-
-    //check http status
-    when(statusCode.value){
-        0 -> {}
-        201->{
-           adminDishModel.resetStatusCode()
-           Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
-        }
-        else->{
-            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
-        }
-    }
+    var priceString: String by remember { mutableStateOf("") } //price input fix
 
     //get spinner data from category table
     val adminCategoryModel: AdminCategoryModel = viewModel()
@@ -97,6 +84,38 @@ fun AdminAddDish(navController: NavHostController) {
     var expanded by remember { mutableStateOf(false) }
 //    var selectedIndex by remember { mutableIntStateOf(0) }
     var selectedCategory = "Vui lòng chọn loại món ăn"
+
+
+    //update mode
+    var updateFlag = false
+    val oDish by adminDishModel.aDish.observeAsState(initial = FoodModel("", "", 0f, 0, 0, 0))
+    if(uDishId != null){
+        updateFlag = true
+        adminDishModel.get1Dish(uDishId)
+        name = oDish.name
+        priceString = String.format("%.0f", oDish.price)
+    }
+
+    //check http status
+    when(statusCode){
+        0 -> {}
+        200->{
+            adminDishModel.resetStatusCode()
+            Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show()
+        }
+        201->{
+           adminDishModel.resetStatusCode()
+           Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
+        }
+        else->{
+            adminDishModel.resetStatusCode()
+            if(updateFlag){
+                Toast.makeText(context, "Sửa thành bại", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     Scaffold(topBar = {
         HeaderWithAvatar(
@@ -239,14 +258,18 @@ fun AdminAddDish(navController: NavHostController) {
 //                            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
 //                        }
 //                    }
-                      adminDishModel.addDish(FoodModel(null, name, price, 0, 0, 0))
+                    if (updateFlag){
+                        adminDishModel.updateDish(uDishId!!, FoodModel(uDishId, name, price, 0,0,0))
+                    }else{
+                        adminDishModel.addDish(FoodModel(null, name, price, 0, 0, 0))
+                    }
                 },
                 modifier = Modifier.padding(top = 50.dp),
                 shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(Color("#FFB703".toColorInt())),
+                colors = ButtonDefaults.buttonColors(accent1),
             ) {
                 Text(
-                    text = "Thêm",
+                    text = if(updateFlag){"Sửa"}else{"Thêm"},
                     color = Color.Black,
                     fontFamily = Inter,
                     fontWeight = FontWeight.SemiBold,
@@ -259,9 +282,9 @@ fun AdminAddDish(navController: NavHostController) {
 }
 
 
-@Preview
-@Composable
-private fun Preview() {
-    AdminAddDish(navController = NavHostController(LocalContext.current))
-}
+//@Preview
+//@Composable
+//private fun Preview() {
+//    AdminAddDish(navController = NavHostController(LocalContext.current))
+//}
 

@@ -36,26 +36,48 @@ import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.component.HeaderWithAvatar
 import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.ui.theme.Inter
+import com.xuong.poly.hoangcam.ui.theme.accent1
 import com.xuong.poly.hoangcam.viewmodel.AdminCategoryModel
 
 
 @Composable
-fun AdminAddCategory(navController: NavHostController) {
+fun AdminAddCategory(navController: NavHostController, uCategoryId: String?) {
+
+    var categoryName by remember { mutableStateOf("") }
 
     val adminCategoryModel: AdminCategoryModel = viewModel()
     val statusCode by adminCategoryModel.statusCode.observeAsState(initial = 0)
-
     val context = LocalContext.current
+
+    //update mode
+    var updateFlag = false
+    val oCategory by adminCategoryModel.aCategory.observeAsState(CategoryModel("", ""))
+    if(uCategoryId != null){
+        updateFlag = true
+        adminCategoryModel.getCategoryById(uCategoryId)
+        categoryName = oCategory.name
+    }
 
     //check http status
     when(statusCode){
         0 -> {}
+        200->{
+            adminCategoryModel.resetStatus()
+            if(updateFlag){
+                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show()
+            }
+        }
         201->{
             adminCategoryModel.resetStatus()
             Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
         }
         else->{
-            Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
+            adminCategoryModel.resetStatus()
+            if(updateFlag){
+                Toast.makeText(context, "Sửa thành bại", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(context, "Thêm thành bại", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -76,9 +98,6 @@ fun AdminAddCategory(navController: NavHostController) {
                 .padding(16.dp, 150.dp, 16.dp, 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var categoryName by remember {
-                mutableStateOf("")
-            }
             TextField(value = categoryName,
                 onValueChange = { categoryName = it },
                 modifier = Modifier
@@ -95,14 +114,18 @@ fun AdminAddCategory(navController: NavHostController) {
 
             Button(
                 onClick = {
-                        adminCategoryModel.addCategory(CategoryModel(null, categoryName))
+                            if (updateFlag){
+                                adminCategoryModel.updateCategory(uCategoryId!!, CategoryModel(uCategoryId, categoryName))
+                            }else{
+                                adminCategoryModel.addCategory(CategoryModel(null, categoryName))
+                            }
                           },
                 modifier = Modifier.padding(top = 50.dp),
                 shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(Color("#FFB703".toColorInt())),
+                colors = ButtonDefaults.buttonColors(accent1),
             ) {
                 Text(
-                    text = "Thêm",
+                    text = if(updateFlag){"Sửa"}else{"Thêm"},
                     color = Color.Black,
                     fontFamily = Inter,
                     fontWeight = FontWeight.SemiBold,
