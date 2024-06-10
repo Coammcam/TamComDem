@@ -74,6 +74,7 @@ class AdminDishModel: ViewModel() {
             try {
                 val response = api.updateFood(id, uDish)
                 if(response.code() == 200){
+                    getDishes()
                     _statusCode.postValue(response.code())
                 }else{
                     _statusCode.postValue(0)
@@ -89,6 +90,7 @@ class AdminDishModel: ViewModel() {
             try {
                 val response = api.deleteFood(id)
                 if(response.code() == 200){
+                    getDishes()
                     _statusCode.postValue(response.code())
                 }else{
                     _statusCode.postValue(0)

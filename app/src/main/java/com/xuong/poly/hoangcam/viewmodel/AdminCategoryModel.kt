@@ -77,6 +77,7 @@ class AdminCategoryModel: ViewModel(){
             try {
                 val response = api.deleteCategory(id)
                 if(response.code() == 200){
+                    getCategory()
                     _statusCode.postValue(response.code())
                 }else{
                     _statusCode.postValue(0)
@@ -92,6 +93,7 @@ class AdminCategoryModel: ViewModel(){
             try {
                 val response = api.updateCategory(id, uCategory)
                 if(response.code() == 200){
+                    getCategory()
                     _statusCode.postValue(response.code())
                 }else{
                     _statusCode.postValue(0)
