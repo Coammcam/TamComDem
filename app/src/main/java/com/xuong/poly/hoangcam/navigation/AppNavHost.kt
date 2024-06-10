@@ -6,7 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.screen.admin.AdminChart
 import com.xuong.poly.hoangcam.screen.admin.category.AdminAddCategory
 import com.xuong.poly.hoangcam.screen.admin.dish.AdminAddDish
@@ -35,7 +38,7 @@ enum class ROUTE_SCREEN_NAME {
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = ROUTE_SCREEN_NAME.BOARDING.name
+    startDestination: String = ROUTE_SCREEN_NAME.LOGIN.name
 ) {
     NavHost(
         navController = navController, modifier = Modifier, startDestination = startDestination
@@ -65,7 +68,7 @@ fun AppNavHost(
         }
 
         composable(ROUTE_SCREEN_NAME.ADMINADDCATEGORY.name) {
-            AdminAddCategory(navController)
+            AdminAddCategory(navController, null)
         }
 
         composable(ROUTE_SCREEN_NAME.ADMINMANAGECATEGORY.name) {
@@ -92,7 +95,7 @@ fun AppNavHost(
         }
 
         composable(ROUTE_SCREEN_NAME.ADMINADDDISH.name) {
-            AdminAddDish(navController)
+            AdminAddDish(navController, null)
         }
 
         composable(ROUTE_SCREEN_NAME.ADMINEDITDISH.name) {
@@ -110,5 +113,14 @@ fun AppNavHost(
         composable(ROUTE_SCREEN_NAME.SIGNUP.name) {
             SignUp(navController)
         }
+
+        composable("updateScreen/{param}", arguments = listOf(navArgument("param"){type = NavType.StringType})){
+            AdminAddCategory(navController = navController, uCategoryId = it.arguments?.getString("param"))
+        }
+
+        composable("updateDish/{param}", arguments = listOf(navArgument("param"){type = NavType.StringType})){
+            AdminAddDish(navController = navController, uDishId = it.arguments?.getString("param"))
+        }
+
     }
 }
