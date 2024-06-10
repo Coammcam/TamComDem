@@ -27,26 +27,25 @@ enum class ActionType {
     Edit, Delete
 }
 
-
 @Composable
-fun RowList(id: String, name: String, actionType: ActionType) {
+fun RowList(id: String, name: String, actionType: ActionType, func: (()->Unit)?) {
 
-    // TODO: delete
+    //confirm delete dialog
     var showDialog by remember { mutableStateOf(false) }
     if (showDialog) {
-        Dialog(title = "Cảnh báo", message = "Khi xóa dữ liệu sẽ không được phục hồi", onConfirm = {
-            // TODO: logic delete
-            showDialog = false
-        }, onDismiss = {
-            showDialog = false
-        })
+        Dialog(title = "Cảnh báo", message = "Khi xóa dữ liệu sẽ không được phục hồi",
+            onConfirm = {
+                func?.invoke()
+                showDialog = false
+            }, onDismiss = {
+                showDialog = false
+            }
+        )
     }
-
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 8.dp)
             .background(Color("#2F2D2D".toColorInt()), shape = RoundedCornerShape(10.dp))
             .padding(vertical = 24.dp, horizontal = 16.dp),
     ) {
@@ -65,7 +64,7 @@ fun RowList(id: String, name: String, actionType: ActionType) {
             fontSize = 15.sp
         )
         when (actionType) {
-            ActionType.Edit -> EditIcon()
+            ActionType.Edit -> EditIcon(onClick = {func?.invoke()})
             ActionType.Delete -> DeleteIcon(onClick = { showDialog = true })
         }
 
@@ -75,11 +74,11 @@ fun RowList(id: String, name: String, actionType: ActionType) {
 }
 
 @Composable
-fun EditIcon() {
+fun EditIcon(onClick: () -> Unit) {
     Icon(
         painterResource(id = R.drawable.edit),
         contentDescription = null,
-        Modifier.size(20.dp),
+        Modifier.size(20.dp).clickable { onClick.invoke() },
         tint = Color.White
     )
 }
@@ -91,7 +90,7 @@ fun DeleteIcon(onClick: () -> Unit) {
         contentDescription = null,
         Modifier
             .size(20.dp)
-            .clickable { onClick },
+            .clickable { onClick.invoke() },
         tint = Color.White,
     )
 }
