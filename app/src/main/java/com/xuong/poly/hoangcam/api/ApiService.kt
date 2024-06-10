@@ -1,5 +1,6 @@
 package com.xuong.poly.hoangcam.api
 
+import com.xuong.poly.hoangcam.model.AccountModel
 import com.xuong.poly.hoangcam.model.CategoryModel
 import com.xuong.poly.hoangcam.model.FoodModel
 import com.xuong.poly.hoangcam.model.OrderModel
@@ -12,6 +13,15 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
+
+    @GET("/Accounts/{email}")
+    suspend fun Login(@Path("email") email: String): Response<AccountModel>
+
+    @POST("/Accounts")
+    suspend fun Signup(@Body nAccount: AccountModel): Response<AccountModel>
+
+    @PUT("/Accounts/{id}")
+    suspend fun UpdateAccount(@Path("id") id: String, @Body account: AccountModel)
 
     //CRUD foods
     @GET("/Items")

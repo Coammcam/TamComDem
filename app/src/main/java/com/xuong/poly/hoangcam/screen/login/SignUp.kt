@@ -1,5 +1,6 @@
 package com.xuong.poly.hoangcam.screen.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,14 +43,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.xuong.poly.hoangcam.R
 import com.xuong.poly.hoangcam.ui.theme.Inter
 import com.xuong.poly.hoangcam.ui.theme.accent1
 import com.xuong.poly.hoangcam.ui.theme.primary1
+import com.xuong.poly.hoangcam.viewmodel.LoginViewModel
+import kotlin.math.log
 
 @Composable
 fun SignUp(navHostController: NavHostController) {
+
+    val context = LocalContext.current
+
+    val loginViewModel: LoginViewModel = viewModel()
+    val statusCode by loginViewModel.statusCode.observeAsState(initial = 0)
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -58,6 +69,18 @@ fun SignUp(navHostController: NavHostController) {
     }
     var passwordVisible_cfpw by remember {
         mutableStateOf(false)
+    }
+
+    when(statusCode){
+        0->{}
+        201->{
+            loginViewModel.resetStatusCode()
+            Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show()
+        }
+        else->{
+            loginViewModel.resetStatusCode()
+            Toast.makeText(context, "Đăng ký thành bại", Toast.LENGTH_SHORT).show()
+        }
     }
 
     Column(
@@ -183,7 +206,15 @@ fun SignUp(navHostController: NavHostController) {
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                if(email.isBlank() || password.isBlank() || confirmPassword.isBlank()){
+                    Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+                }else if(password != confirmPassword){
+                    Toast.makeText(context, "Vui lòng kiểm tra lại mật khẩu", Toast.LENGTH_SHORT).show()
+                }else{
+                    loginViewModel.SignUp(email, password)
+                }
+            },
             modifier = Modifier.padding(bottom = 60.dp),
             colors = ButtonDefaults.buttonColors(accent1),
         ) {
